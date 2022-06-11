@@ -306,12 +306,15 @@ public class TreasureConfig extends BukkitConfig {
     }
 
     private int getWrongKeyValue(String type, String treasureName, DropLevelKeyConversionType dropLevelKeyConversionType) {
-        return switch (dropLevelKeyConversionType) {
-            case LEGACY -> config.getInt(type + "." + treasureName + LEGACY_DROP_LEVEL, -1);
-            case WRONG_KEY_STANDARD -> config.getInt(type + "." + treasureName + WRONG_KEY_VALUE_STANDARD, -1);
-            case WRONG_KEY_RETRO -> config.getInt(type + "." + treasureName + WRONG_KEY_VALUE_RETRO, -1);
-        };
-
+        switch (dropLevelKeyConversionType) {
+            case LEGACY:
+                return config.getInt(type + "." + treasureName + LEGACY_DROP_LEVEL, -1);
+            case WRONG_KEY_STANDARD:
+                return config.getInt(type + "." + treasureName + WRONG_KEY_VALUE_STANDARD, -1);
+            case WRONG_KEY_RETRO:
+                return config.getInt(type + "." + treasureName + WRONG_KEY_VALUE_RETRO, -1);
+        }
+        return -1;
     }
 
     private void AddHylianTreasure(String dropper, HylianTreasure treasure) {

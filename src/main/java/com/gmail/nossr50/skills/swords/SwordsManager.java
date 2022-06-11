@@ -78,7 +78,8 @@ public class SwordsManager extends SkillManager {
 
         if (RandomChanceUtil.rollDice(mcMMO.p.getAdvancedConfig().getRuptureChanceToApplyOnHit(getRuptureRank()), 100)) {
 
-            if (target instanceof Player defender) {
+            if (target instanceof Player) {
+                Player defender = (Player) target;
 
                 //Don't start or add to a bleed if they are blocking
                 if(defender.isBlocking())

@@ -256,15 +256,20 @@ public final class LocaleLoader {
 
     @NotNull
     private static String getExamples() {
+        /*
         return """
                 This.Is.An.Example.Put.Locale.Keys.Here.One=&aExample text using hex color codes
                 This.Is.An.Example.Put.Locale.Keys.Here.Two=[[DARK_AQUA]]Example text using our own color codes
                 This.Is.An.Example.Put.Locale.Keys.Here.Three=Example text with no colors
                 """;
+
+         */
+        return "";
     }
 
     @NotNull
     private static String getLocaleHelpTextWithoutExamples() {
+        /*
         String localeExplanation =
                 """
                         # -- Are you looking to change the language of mcMMO but without editing it yourself? --
@@ -300,6 +305,9 @@ public final class LocaleLoader {
                         # -- Add Keys Below --
                         """;
         return localeExplanation;
+
+         */
+        return "";
     }
 
     public static String addColors(String input) {

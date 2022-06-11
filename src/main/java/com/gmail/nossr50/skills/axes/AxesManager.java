@@ -8,6 +8,7 @@ import com.gmail.nossr50.datatypes.skills.SuperAbilityType;
 import com.gmail.nossr50.datatypes.skills.ToolType;
 import com.gmail.nossr50.mcMMO;
 import com.gmail.nossr50.skills.SkillManager;
+import com.gmail.nossr50.util.CraftiStackerUtil;
 import com.gmail.nossr50.util.ItemUtils;
 import com.gmail.nossr50.util.Permissions;
 import com.gmail.nossr50.util.player.NotificationManager;
@@ -24,35 +25,42 @@ public class AxesManager extends SkillManager {
     }
 
     public boolean canUseAxeMastery() {
-        if(!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_AXE_MASTERY))
+        if (!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_AXE_MASTERY))
             return false;
 
         return Permissions.isSubSkillEnabled(getPlayer(), SubSkillType.AXES_AXE_MASTERY);
     }
 
     public boolean canCriticalHit(@NotNull LivingEntity target) {
-        if(!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_CRITICAL_STRIKES))
+        if (CraftiStackerUtil.get()
+                .getStackCountStore()
+                .getStackCount(target)
+                .isPresent()) {
+            return false;
+        }
+
+        if (!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_CRITICAL_STRIKES))
             return false;
 
         return target.isValid() && Permissions.isSubSkillEnabled(getPlayer(), SubSkillType.AXES_CRITICAL_STRIKES);
     }
 
     public boolean canImpact(@NotNull LivingEntity target) {
-        if(!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_ARMOR_IMPACT))
+        if (!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_ARMOR_IMPACT))
             return false;
 
         return target.isValid() && Permissions.isSubSkillEnabled(getPlayer(), SubSkillType.AXES_ARMOR_IMPACT) && Axes.hasArmor(target);
     }
 
     public boolean canGreaterImpact(@NotNull LivingEntity target) {
-        if(!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_GREATER_IMPACT))
+        if (!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_GREATER_IMPACT))
             return false;
 
         return target.isValid() && Permissions.isSubSkillEnabled(getPlayer(), SubSkillType.AXES_GREATER_IMPACT) && !Axes.hasArmor(target);
     }
 
     public boolean canUseSkullSplitter(@NotNull LivingEntity target) {
-        if(!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_SKULL_SPLITTER))
+        if (!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_SKULL_SPLITTER))
             return false;
 
         return target.isValid() && mmoPlayer.getAbilityMode(SuperAbilityType.SKULL_SPLITTER) && Permissions.skullSplitter(getPlayer());
@@ -90,15 +98,15 @@ public class AxesManager extends SkillManager {
             NotificationManager.sendPlayerInformation(player, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.CriticalHit");
         }
 
-        if (target instanceof Player defender) {
+        if (target instanceof Player) {
+            Player defender = (Player) target;
 
             if (NotificationManager.doesPlayerUseNotifications(defender)) {
                 NotificationManager.sendPlayerInformation(defender, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.CritStruck");
             }
 
             damage = (damage * Axes.criticalHitPVPModifier) - damage;
-        }
-        else {
+        } else {
             damage = (damage * Axes.criticalHitPVEModifier) - damage;
         }
 
@@ -146,7 +154,8 @@ public class AxesManager extends SkillManager {
             NotificationManager.sendPlayerInformation(player, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.GI.Proc");
         }
 
-        if (target instanceof Player defender) {
+        if (target instanceof Player) {
+            Player defender = (Player) target;
 
             if (NotificationManager.doesPlayerUseNotifications(defender)) {
                 NotificationManager.sendPlayerInformation(defender, NotificationType.SUBSKILL_MESSAGE, "Axes.Combat.GI.Struck");
@@ -158,7 +167,8 @@ public class AxesManager extends SkillManager {
 
     /**
      * Handle the effects of the Skull Splitter ability
-     *  @param target The {@link LivingEntity} being affected by the ability
+     *
+     * @param target The {@link LivingEntity} being affected by the ability
      * @param damage The amount of damage initially dealt by the event
      */
     public void skullSplitterCheck(@NotNull LivingEntity target, double damage) {

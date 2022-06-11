@@ -64,24 +64,38 @@ public class SoundManager {
             return SoundConfig.getInstance().getPitch(soundType);
     }
 
-    private static Sound getSound(SoundType soundType)
-    {
-        return switch (soundType) {
-            case ANVIL -> Sound.BLOCK_ANVIL_PLACE;
-            case ITEM_BREAK -> Sound.ENTITY_ITEM_BREAK;
-            case POP -> Sound.ENTITY_ITEM_PICKUP;
-            case CHIMAERA_WING -> Sound.ENTITY_BAT_TAKEOFF;
-            case LEVEL_UP -> Sound.ENTITY_PLAYER_LEVELUP;
-            case FIZZ -> Sound.BLOCK_FIRE_EXTINGUISH;
-            case TOOL_READY -> Sound.ITEM_ARMOR_EQUIP_GOLD;
-            case ROLL_ACTIVATED -> Sound.ENTITY_LLAMA_SWAG;
-            case SKILL_UNLOCKED -> Sound.UI_TOAST_CHALLENGE_COMPLETE;
-            case ABILITY_ACTIVATED_BERSERK, TIRED -> Sound.BLOCK_CONDUIT_AMBIENT;
-            case ABILITY_ACTIVATED_GENERIC -> Sound.ITEM_TRIDENT_RIPTIDE_3;
-            case DEFLECT_ARROWS, BLEED -> Sound.ENTITY_ENDER_EYE_DEATH;
-            case GLASS -> Sound.BLOCK_GLASS_BREAK;
-            case ITEM_CONSUMED -> Sound.ITEM_BOTTLE_EMPTY;
-        };
+    private static Sound getSound(SoundType soundType) {
+        switch (soundType) {
+            case ANVIL:
+                return Sound.BLOCK_ANVIL_PLACE;
+            case ITEM_BREAK:
+                return Sound.ENTITY_ITEM_BREAK;
+            case POP:
+                return Sound.ENTITY_ITEM_PICKUP;
+            case CHIMAERA_WING:
+                return Sound.ENTITY_BAT_TAKEOFF;
+            case LEVEL_UP:
+                return Sound.ENTITY_PLAYER_LEVELUP;
+            case TOOL_READY:
+                return Sound.ITEM_ARMOR_EQUIP_GOLD;
+            case ROLL_ACTIVATED:
+                return Sound.ENTITY_LLAMA_SWAG;
+            case SKILL_UNLOCKED:
+                return Sound.UI_TOAST_CHALLENGE_COMPLETE;
+            case ABILITY_ACTIVATED_BERSERK:
+                return Sound.BLOCK_CONDUIT_AMBIENT;
+            case ABILITY_ACTIVATED_GENERIC:
+                return Sound.ITEM_TRIDENT_RIPTIDE_3;
+            case DEFLECT_ARROWS:
+            case BLEED:
+                return Sound.ENTITY_ENDER_EYE_DEATH;
+            case GLASS:
+                return Sound.BLOCK_GLASS_BREAK;
+            case ITEM_CONSUMED:
+                return Sound.ITEM_BOTTLE_EMPTY;
+        }
+
+        return null;
     }
 
     public static float getFizzPitch() {

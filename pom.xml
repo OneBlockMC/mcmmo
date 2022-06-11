@@ -14,9 +14,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
-        <java.version>16</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
     </properties>
 
     <issueManagement>
@@ -102,7 +102,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <release>16</release>
+                    <release>11</release>
                     <compilerArgs>
                         <arg>-parameters</arg> <!-- used for ACF syntax stuff -->
                     </compilerArgs>
@@ -361,6 +361,12 @@
             <artifactId>guava</artifactId>
             <version>31.0.1-jre</version> <!-- At this time Spigot is including 29.0 Guava classes that we are using -->
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.craftimize</groupId>
+            <artifactId>CraftiStacker</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
