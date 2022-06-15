@@ -286,12 +286,19 @@ public class EntityListener implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        Entity defender = event.getEntity();
+        if (CraftiStackerUtil.get()
+                .getStackCountStore()
+                .getStackCount(defender)
+                .isPresent()) {
+            return;
+        }
+
         if (event instanceof FakeEntityDamageByEntityEvent || event instanceof McMMOEntityDamageByRuptureEvent) {
             return;
         }
 
         double damage = event.getFinalDamage();
-        Entity defender = event.getEntity();
         Entity attacker = event.getDamager();
 
         if (WorldGuardUtils.isWorldGuardLoaded()) {

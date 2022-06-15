@@ -8,7 +8,6 @@ import com.gmail.nossr50.datatypes.skills.SuperAbilityType;
 import com.gmail.nossr50.datatypes.skills.ToolType;
 import com.gmail.nossr50.mcMMO;
 import com.gmail.nossr50.skills.SkillManager;
-import com.gmail.nossr50.util.CraftiStackerUtil;
 import com.gmail.nossr50.util.ItemUtils;
 import com.gmail.nossr50.util.Permissions;
 import com.gmail.nossr50.util.player.NotificationManager;
@@ -32,16 +31,8 @@ public class AxesManager extends SkillManager {
     }
 
     public boolean canCriticalHit(@NotNull LivingEntity target) {
-        if (CraftiStackerUtil.get()
-                .getStackCountStore()
-                .getStackCount(target)
-                .isPresent()) {
-            return false;
-        }
-
         if (!RankUtils.hasUnlockedSubskill(getPlayer(), SubSkillType.AXES_CRITICAL_STRIKES))
             return false;
-
         return target.isValid() && Permissions.isSubSkillEnabled(getPlayer(), SubSkillType.AXES_CRITICAL_STRIKES);
     }
 
