@@ -10,6 +10,7 @@ import com.gmail.nossr50.datatypes.player.PlayerProfile;
 import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 import com.gmail.nossr50.mcMMO;
 import com.gmail.nossr50.skills.child.FamilyTree;
+import com.gmail.nossr50.util.CraftiStackerUtil;
 import com.gmail.nossr50.util.player.UserManager;
 import com.gmail.nossr50.util.skills.CombatUtils;
 import com.gmail.nossr50.util.skills.SkillTools;
@@ -51,6 +52,13 @@ public final class ExperienceAPI {
      */
     @Deprecated
     public static void addCombatXP(McMMOPlayer mcMMOPlayer, LivingEntity target, PrimarySkillType primarySkillType, double multiplier) {
+        if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
+                .getStackCountStore()
+                .getStackCount(target)
+                .isPresent()) {
+            return;
+        }
+
         CombatUtils.processCombatXP(mcMMOPlayer, target, primarySkillType, multiplier);
     }
 
@@ -65,6 +73,13 @@ public final class ExperienceAPI {
      */
     @Deprecated
     public static void addCombatXP(McMMOPlayer mcMMOPlayer, LivingEntity target, PrimarySkillType primarySkillType) {
+        if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
+                .getStackCountStore()
+                .getStackCount(target)
+                .isPresent()) {
+            return;
+        }
+
         CombatUtils.processCombatXP(mcMMOPlayer, target, primarySkillType);
     }
 

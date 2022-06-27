@@ -287,7 +287,7 @@ public class EntityListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         Entity defender = event.getEntity();
-        if (CraftiStackerUtil.get()
+        if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
                 .getStackCountStore()
                 .getStackCount(defender)
                 .isPresent()) {
