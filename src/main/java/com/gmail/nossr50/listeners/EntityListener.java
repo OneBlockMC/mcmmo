@@ -28,10 +28,7 @@ import com.gmail.nossr50.util.skills.CombatUtils;
 import com.gmail.nossr50.util.skills.SkillActivationType;
 import com.gmail.nossr50.worldguard.WorldGuardManager;
 import com.gmail.nossr50.worldguard.WorldGuardUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -287,13 +284,15 @@ public class EntityListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         Entity defender = event.getEntity();
-        if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
-                .getStackCountStore()
-                .getStackCount(defender)
-                .isPresent()) {
-            return;
-        }
 
+        if (Bukkit.getPluginManager().isPluginEnabled("CraftiStacker")) {
+            if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
+                    .getStackCountStore()
+                    .getStackCount(defender)
+                    .isPresent()) {
+                return;
+            }
+        }
         if (event instanceof FakeEntityDamageByEntityEvent || event instanceof McMMOEntityDamageByRuptureEvent) {
             return;
         }

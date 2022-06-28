@@ -14,6 +14,7 @@ import com.gmail.nossr50.util.CraftiStackerUtil;
 import com.gmail.nossr50.util.player.UserManager;
 import com.gmail.nossr50.util.skills.CombatUtils;
 import com.gmail.nossr50.util.skills.SkillTools;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.LivingEntity;
@@ -52,11 +53,13 @@ public final class ExperienceAPI {
      */
     @Deprecated
     public static void addCombatXP(McMMOPlayer mcMMOPlayer, LivingEntity target, PrimarySkillType primarySkillType, double multiplier) {
-        if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
-                .getStackCountStore()
-                .getStackCount(target)
-                .isPresent()) {
-            return;
+        if (Bukkit.getPluginManager().isPluginEnabled("CraftiStacker")) {
+            if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
+                    .getStackCountStore()
+                    .getStackCount(target)
+                    .isPresent()) {
+                return;
+            }
         }
 
         CombatUtils.processCombatXP(mcMMOPlayer, target, primarySkillType, multiplier);
@@ -73,11 +76,13 @@ public final class ExperienceAPI {
      */
     @Deprecated
     public static void addCombatXP(McMMOPlayer mcMMOPlayer, LivingEntity target, PrimarySkillType primarySkillType) {
-        if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
-                .getStackCountStore()
-                .getStackCount(target)
-                .isPresent()) {
-            return;
+        if (Bukkit.getPluginManager().isPluginEnabled("CraftiStacker")) {
+            if (CraftiStackerUtil.get() != null && CraftiStackerUtil.get()
+                    .getStackCountStore()
+                    .getStackCount(target)
+                    .isPresent()) {
+                return;
+            }
         }
 
         CombatUtils.processCombatXP(mcMMOPlayer, target, primarySkillType);
